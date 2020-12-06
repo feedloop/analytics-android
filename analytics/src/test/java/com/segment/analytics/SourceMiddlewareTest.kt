@@ -52,7 +52,7 @@ class SourceMiddlewareTest {
         Analytics.INSTANCES.clear()
         TestUtils.grantPermission(RuntimeEnvironment.application, INTERNET)
         builder =
-            Analytics.Builder(RuntimeEnvironment.application, "write_key")
+            Analytics.Builder(RuntimeEnvironment.application, "write_key", "sample-host")
                 .executor(MoreExecutors.newDirectExecutorService())
     }
 

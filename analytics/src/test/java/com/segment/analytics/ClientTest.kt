@@ -63,7 +63,7 @@ class ClientTest {
 
         client = Client(
             "foo",
-            object : ConnectionFactory() {
+            object : ConnectionFactory("sample-host") {
                 @Throws(IOException::class)
                 override fun openConnection(url: String): HttpURLConnection {
                     val path = Uri.parse(url).path
@@ -75,7 +75,7 @@ class ClientTest {
 
         mockClient = Client(
             "foo",
-            object : ConnectionFactory() {
+            object : ConnectionFactory("sample-host") {
                 @Throws(IOException::class)
                 override fun openConnection(url: String): HttpURLConnection {
                     return mockConnection

@@ -79,7 +79,7 @@ class DestinationMiddlewareTest {
                         )
                 )
         builder =
-            Analytics.Builder(RuntimeEnvironment.application, "write_key")
+            Analytics.Builder(RuntimeEnvironment.application, "write_key", "sample-host")
                 .defaultProjectSettings(projectSettings)
                 .use(
                     object : Integration.Factory {

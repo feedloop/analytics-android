@@ -737,7 +737,7 @@ open class AnalyticsTest {
     fun shutdownDisallowedOnCustomSingletonInstance() {
         Analytics.singleton = null
         try {
-            val analytics = Analytics.Builder(RuntimeEnvironment.application, "foo").build()
+            val analytics = Analytics.Builder(RuntimeEnvironment.application, "foo", "sample-host").build()
             Analytics.setSingletonInstance(analytics)
             analytics.shutdown()
             fail("Calling shutdown() on static singleton instance should throw")
@@ -749,7 +749,7 @@ open class AnalyticsTest {
     fun setSingletonInstanceMayOnlyBeCalledOnce() {
         Analytics.singleton = null
 
-        val analytics = Analytics.Builder(RuntimeEnvironment.application, "foo").build()
+        val analytics = Analytics.Builder(RuntimeEnvironment.application, "foo", "sample-host").build()
         Analytics.setSingletonInstance(analytics)
 
         try {
@@ -763,9 +763,9 @@ open class AnalyticsTest {
     @Test
     fun setSingletonInstanceAfterWithFails() {
         Analytics.singleton = null
-        Analytics.setSingletonInstance(Analytics.Builder(RuntimeEnvironment.application, "foo").build())
+        Analytics.setSingletonInstance(Analytics.Builder(RuntimeEnvironment.application, "foo", "sample-host").build())
 
-        val analytics = Analytics.Builder(RuntimeEnvironment.application, "bar").build()
+        val analytics = Analytics.Builder(RuntimeEnvironment.application, "bar", "sample-host").build()
         try {
             Analytics.setSingletonInstance(analytics)
             fail("Can't set singleton instance after with().")
@@ -777,7 +777,7 @@ open class AnalyticsTest {
     @Test
     fun setSingleInstanceReturnedFromWith() {
         Analytics.singleton = null
-        val analytics = Analytics.Builder(RuntimeEnvironment.application, "foo").build()
+        val analytics = Analytics.Builder(RuntimeEnvironment.application, "foo", "sample-host").build()
         Analytics.setSingletonInstance(analytics)
         assertThat(Analytics.with(RuntimeEnvironment.application)).isSameAs(analytics)
     }
@@ -785,9 +785,9 @@ open class AnalyticsTest {
     @Test
     @Throws(Exception::class)
     fun multipleInstancesWithSameTagThrows() {
-        Analytics.Builder(RuntimeEnvironment.application, "foo").build()
+        Analytics.Builder(RuntimeEnvironment.application, "foo", "sample-host").build()
         try {
-            Analytics.Builder(RuntimeEnvironment.application, "bar").tag("foo").build()
+            Analytics.Builder(RuntimeEnvironment.application, "bar", "sample-host").tag("foo").build()
             fail("Creating client with duplicate should throw.")
         } catch (expected: IllegalStateException) {
             assertThat(expected)
@@ -798,8 +798,8 @@ open class AnalyticsTest {
     @Test
     @Throws(Exception::class)
     fun multipleInstancesWithSameTagIsAllowedAfterShutdown() {
-        Analytics.Builder(RuntimeEnvironment.application, "foo").build().shutdown()
-        Analytics.Builder(RuntimeEnvironment.application, "bar").tag("foo").build()
+        Analytics.Builder(RuntimeEnvironment.application, "foo", "sample-host").build().shutdown()
+        Analytics.Builder(RuntimeEnvironment.application, "bar", "sample-host").tag("foo").build()
     }
 
     @Test
@@ -812,7 +812,7 @@ open class AnalyticsTest {
     @Test
     @Throws(Exception::class)
     fun invalidURlsThrowAndNotCrash() {
-        val connection = ConnectionFactory()
+        val connection = ConnectionFactory("sample-host")
 
         try {
             connection.openConnection("SOME_BUSTED_URL")
