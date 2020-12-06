@@ -13,6 +13,7 @@ Releasing
  10. Create a PR to merge the new branch into `master`
  11. The CI pipeline will recognize the tag and upload, close and promote the artifacts automatically
 
+
 Example (stable release)
 ========
  1. Current VERSION_NAME in `gradle.properties` = 4.9.1
