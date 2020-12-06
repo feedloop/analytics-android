@@ -94,7 +94,7 @@ class ClientTest {
         assertThat(connection.`is`).isNull()
         assertThat(connection.connection.responseCode).isEqualTo(200) // consume the response
         RecordedRequestAssert.assertThat(server.takeRequest())
-            .hasRequestLine("POST /v1/import HTTP/1.1")
+            .hasRequestLine("POST /sample-host/foo/eventcollector HTTP/1.1")
             .containsHeader("User-Agent", ConnectionFactory.USER_AGENT)
             .containsHeader("Content-Type", "application/json")
             .containsHeader("Content-Encoding", "gzip")
@@ -202,7 +202,7 @@ class ClientTest {
         assertThat(connection.`is`).isNotNull()
         assertThat(connection.connection.responseCode).isEqualTo(200)
         RecordedRequestAssert.assertThat(server.takeRequest())
-            .hasRequestLine("GET /v1/projects/foo/settings HTTP/1.1")
+            .hasRequestLine("GET /sample-host/foo/context.json HTTP/1.1")
             .containsHeader("User-Agent", ConnectionFactory.USER_AGENT)
             .containsHeader("Content-Type", "application/json")
     }
