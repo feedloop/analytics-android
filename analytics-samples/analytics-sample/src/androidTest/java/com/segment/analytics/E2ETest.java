@@ -88,7 +88,7 @@ public class E2ETest {
     @Before
     public void setup() {
         analytics =
-                new Analytics.Builder(activityActivityTestRule.getActivity(), SEGMENT_WRITE_KEY)
+                new Analytics.Builder(activityActivityTestRule.getActivity(), SEGMENT_WRITE_KEY, "sample-host")
                         .build();
 
         webhookService =
