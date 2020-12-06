@@ -43,23 +43,7 @@ android {
 }
 
 spotless {
-    java {
-        target '**/*.java'
-        googleJavaFormat().aosp()
-        licenseHeader getLicenseText()
-    }
-    kotlin {
-        target '**/*.kt'
-        ktlint('0.37.2').userData([
-                'android'        : 'true',
-                'max_line_length': '120',
-        ])
-        licenseHeader getLicenseText()
-    }
-    groovyGradle {
-        target '*.gradle'
-        greclipse()
-    }
+
 }
 
 def getLicenseText() {
