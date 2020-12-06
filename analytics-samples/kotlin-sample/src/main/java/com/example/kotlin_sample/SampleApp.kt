@@ -54,7 +54,7 @@ class SampleApp : Application() {
         )
 
         // Initialize a new instance of the Analytics client.
-        val builder = Analytics.Builder(this, ANALYTICS_WRITE_KEY)
+        val builder = Analytics.Builder(this, ANALYTICS_WRITE_KEY, "sample-host")
             .experimentalNanosecondTimestamps()
             .trackApplicationLifecycleEvents()
             .defaultProjectSettings(
